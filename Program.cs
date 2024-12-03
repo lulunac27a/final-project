@@ -17,6 +17,7 @@ do
             var db = new DataContext();
             Product? product = InputProduct(db, logger);
             db.AddProduct(product);
+            logger.Info("Product added successfully");
             break;
 
         default:
