@@ -18,6 +18,10 @@ do
             Product? product = InputProduct(db, logger);
             db.AddProduct(product);
             break;
+
+        default:
+            logger.Info("Program ended");
+            break;
     }
 } while (true);
 static Product? InputProduct(DataContext db, NLog.Logger logger)
@@ -27,3 +31,4 @@ static Product? InputProduct(DataContext db, NLog.Logger logger)
     product.ProductName = Console.ReadLine();
     return product;
 }
+
