@@ -79,7 +79,7 @@ do
             }
             if (foundAProduct != null)
             {
-                Console.WriteLine($"ID: {foundAProduct.ProductId}, Name: {foundAProduct.ProductName}, Supplier ID: {foundAProduct.SupplierId}, Category ID: {foundAProduct.CategoryId}, Quantity Per Unit: {foundAProduct.QuantityPerUnit}, Unit Price: {foundAProduct.UnitPrice}, Units On Order: {foundAProduct.UnitsOnOrder}, Reorder Level: {foundAProduct.ReorderLevel}, Discontinued: {foundAProduct.Discontinued}")
+                Console.WriteLine($"Product ID: {foundAProduct.ProductId}, Product Name: {foundAProduct.ProductName}, Supplier ID: {foundAProduct.SupplierId}, Category ID: {foundAProduct.CategoryId}, Quantity Per Unit: {foundAProduct.QuantityPerUnit}, Unit Price: {foundAProduct.UnitPrice}, Units On Order: {foundAProduct.UnitsOnOrder}, Reorder Level: {foundAProduct.ReorderLevel}, Discontinued: {foundAProduct.Discontinued}")
             }
 
             break;
