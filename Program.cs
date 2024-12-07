@@ -75,6 +75,7 @@ do
                     break;
                 default:
                     logger.Error("Invalid choice");
+                    break;
             }
             break;
         case "4":
