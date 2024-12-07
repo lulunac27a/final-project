@@ -71,6 +71,18 @@ do
                     break;
             }
             break;
+        case "4":
+            Product? foundAProduct = null;
+            if (int.TryParse(Console.ReadLine(), out var enteredProductId))
+            {
+                foundAProduct = db.Products.Find(enteredProductId);
+            }
+            if (foundAProduct != null)
+            {
+                Console.WriteLine($"ID: {foundAProduct.ProductId}, Name: {foundAProduct.ProductName}, Supplier ID: {foundAProduct.SupplierId}, Category ID: {foundAProduct.CategoryId}, Quantity Per Unit: {foundAProduct.QuantityPerUnit}, Unit Price: {foundAProduct.UnitPrice}, Units On Order: {foundAProduct.UnitsOnOrder}, Reorder Level: {foundAProduct.ReorderLevel}, Discontinued: {foundAProduct.Discontinued}")
+            }
+
+            break;
         default:
             logger.Info("Program ended");
             break;
