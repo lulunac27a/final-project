@@ -42,6 +42,10 @@ do
                 db.EditProduct(UpdatedProduct);
                 logger.Info("Product edited successfully");
             }
+            else
+            {
+                logger.Error("Product not found");
+            }
             break;
         case "3":
             Console.WriteLine("1. Display Discontinued Products");
@@ -69,6 +73,8 @@ do
                         Console.WriteLine(currentProduct.ProductName);
                     }
                     break;
+                default:
+                    logger.Error("Invalid choice");
             }
             break;
         case "4":
@@ -79,11 +85,16 @@ do
             }
             if (foundAProduct != null)
             {
+                logger.Info("Product found");
                 Console.WriteLine($"Product ID: {foundAProduct.ProductId}, Product Name: {foundAProduct.ProductName}, Supplier ID: {foundAProduct.SupplierId}, Category ID: {foundAProduct.CategoryId}, Quantity Per Unit: {foundAProduct.QuantityPerUnit}, Unit Price: {foundAProduct.UnitPrice}, Units In Stock: {foundAProduct.UnitsInStock}, Units On Order: {foundAProduct.UnitsOnOrder}, Reorder Level: {foundAProduct.ReorderLevel}, Discontinued: {foundAProduct.Discontinued}");
+            }
+            else
+            {
+                logger.Error("Product not found");
             }
             break;
         default:
-            logger.Info("Program ended");
+            logger.Info("Invalid choice. Program ended");
             break;
     }
 } while (true);
