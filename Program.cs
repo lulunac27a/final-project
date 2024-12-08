@@ -18,6 +18,7 @@ partial class Program
             Console.WriteLine("2. Edit product");
             Console.WriteLine("3. Display Products");
             Console.WriteLine("4. Display a Specific Product");
+            Console.WriteLine("5. Add Category");
             string? choice = Console.ReadLine();
             var db = new DataContext();
             switch (choice)
@@ -118,6 +119,13 @@ partial class Program
                     {
                         logger.Error("Product not found");
                     }
+                    break;
+                case "5":
+                    Category category = new();
+                    Console.WriteLine("Enter category name:");
+                    category.CategoryName = Console.ReadLine();
+                    db.AddCategory(category);
+                    logger.Info("Category added successfully");
                     break;
                 default:
                     logger.Info("Invalid choice. Program ended");
