@@ -12,6 +12,7 @@ do
     Console.WriteLine("1. Add product");
     Console.WriteLine("2. Edit product");
     Console.WriteLine("3. Display Products");
+    Console.WriteLine("4. Display a Specific Product");
     string? choice = Console.ReadLine();
     var db = new DataContext();
     switch (choice)
