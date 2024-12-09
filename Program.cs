@@ -200,6 +200,14 @@ partial class Program
 
                     break;
                 case "9":
+                    var categoriesLists = db.Categories.OrderBy(c => c.CategoryId).ToList();
+                    if (categoriesLists != null)
+                    {
+                        foreach (Category c in categoriesLists)
+                        {
+                            Console.WriteLine($"{c.CategoryId}. {c.CategoryName}");
+                        }
+                    }
                     if (int.TryParse(Console.ReadLine(), out int selectedCategoryId))
                     {
                         var productsList = db.Products.Where(p => p.CategoryId == selectedCategoryId).ToList();
