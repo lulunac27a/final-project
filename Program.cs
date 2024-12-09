@@ -211,6 +211,10 @@ partial class Program
                     if (int.TryParse(Console.ReadLine(), out int selectedCategoryId))
                     {
                         var productsList = db.Products.Where(p => p.CategoryId == selectedCategoryId).ToList();
+                        if (productsList.Count == 0)
+                        {
+                            logger.Error("No products in this category");
+                        }
                         foreach (var productList in productsList)
                         {
                             var categoryName = db.Categories.FirstOrDefault(c => c.CategoryId == productList.CategoryId)?.CategoryName;
