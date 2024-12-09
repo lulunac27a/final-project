@@ -20,6 +20,8 @@ partial class Program
             Console.WriteLine("4. Display a Specific Product");
             Console.WriteLine("5. Add Category");
             Console.WriteLine("6. Edit Category");
+            Console.WriteLine("7. Display All Categories");
+            Console.WriteLine("8. Display Categories with Names");
             string? choice = Console.ReadLine();
             var db = new DataContext();
             switch (choice)
@@ -150,6 +152,25 @@ partial class Program
                         UpdatedCategory.CategoryId = foundCategory.CategoryId;
                         db.EditCategory(UpdatedCategory);
                         logger.Info("Category edited successfully");
+                    }
+                    break;
+                case "7":
+                    foreach (Category currentCategory in db.Categories)
+                    {
+                        Console.WriteLine($"{currentCategory.CategoryId}. Name: {currentCategory.CategoryName}, Description: {currentCategory.Description}");
+                    }
+                    break;
+                case "8":
+                    foreach (Category currentCategory in db.Categories)
+                    {
+                        List<Product> productsList = db.Products.Where(p => p.CategoryId == currentCategory.CategoryId).ToList();
+                        if (productsList.Count > 0)
+                        {
+                            foreach (Product productList in productsList)
+                            {
+                                Console.WriteLine($"{productList.ProductId}. Name: {productList.ProductName}, Category: {currentCategory.CategoryName}");
+                            }
+                        }
                     }
                     break;
                 default:
