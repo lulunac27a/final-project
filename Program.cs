@@ -21,7 +21,8 @@ partial class Program
             Console.WriteLine("5. Add Category");
             Console.WriteLine("6. Edit Category");
             Console.WriteLine("7. Display All Categories");
-            Console.WriteLine("8. Display Categories with Names");
+            Console.WriteLine("8. Display Categories with Products");
+            Console.WriteLine("9. Display a Specific Category with Products");
             string? choice = Console.ReadLine();
             var db = new DataContext();
             switch (choice)
@@ -170,6 +171,17 @@ partial class Program
                             {
                                 Console.WriteLine($"{productList.ProductId}. Name: {productList.ProductName}, Category: {currentCategory.CategoryName}");
                             }
+                        }
+                    }
+                    break;
+                case "9":
+                    if (int.TryParse(Console.ReadLine(), out int selectedCategoryId))
+                    {
+                        var productsList = db.Products.Where(p => p.CategoryId == selectedCategoryId).ToList();
+                        foreach (var productList in productsList)
+                        {
+                            var categoryName = db.Categories.FirstOrDefault(c => c.CategoryId == productList.CategoryId)?.CategoryName;
+                            Console.WriteLine($"ID: {productList.ProductId}, Name: {productList.ProductName}, Category: {categoryName}");
                         }
                     }
                     break;
