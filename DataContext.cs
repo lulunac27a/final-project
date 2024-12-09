@@ -5,6 +5,7 @@ using NLog;
 public class DataContext : DbContext
 {
   public DbSet<Product> Products { get; set; }
+  public DbSet<Category> Categories { get; set; }
 
   private string path;
   private Logger logger;
@@ -23,26 +24,29 @@ public class DataContext : DbContext
       return;
     }
     Console.WriteLine("Enter category ID:");
-    Console.WriteLine("1. Beverages");
-    Console.WriteLine("2. Condiments");
-    Console.WriteLine("3. Confections");
-    Console.WriteLine("4. Dairy Products");
-    Console.WriteLine("5. Grains");
-    Console.WriteLine("6. Meat/Poultry");
-    Console.WriteLine("7. Produce");
-    Console.WriteLine("8. Seafood");
+    foreach (Category category in this.Categories)
+    {
+      Console.WriteLine($"{category.CategoryId}. {category.CategoryName}");
+    }
     int categoryID = Convert.ToInt32(Console.ReadLine());
-    product.CategoryId = categoryID;
-    if (categoryID < 1 || categoryID > 8)
+    Category? foundCategory = this.Categories.FirstOrDefault(c => c.CategoryId == categoryID);
+    if (foundCategory != null)
+    {
+      product.CategoryId = categoryID;
+    }
+    else
     {
       logger.Error("Invalid category ID");
       return;
     }
-    else
-    {
-      this.Products.Add(product);
-      logger.Info("Product added successfully");
-    }
+    this.Products.Add(product);
+    logger.Info("Product added successfully");
+
+    this.SaveChanges();
+  }
+  public void AddCategory(Category category)
+  {
+    this.Categories.Add(category);
     this.SaveChanges();
   }
   public void DeleteProduct(Product product)
