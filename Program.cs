@@ -78,7 +78,7 @@ partial class Program
                     Console.WriteLine("1. Display Discontinued Products");
                     Console.WriteLine("2. Display Active Products");
                     Console.WriteLine("3. Display All Products");
-                    string discontinued = Console.ReadLine();
+                    string? discontinued = Console.ReadLine();
                     switch (discontinued)
                     {
                         case "1":
