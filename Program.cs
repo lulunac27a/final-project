@@ -114,6 +114,10 @@ partial class Program
                     {
                         foundAProduct = db.Products.Find(enteredProductId);
                     }
+                    else
+                    {
+                        logger.Error("Invalid product ID");
+                    }
                     if (foundAProduct != null)
                     {
                         logger.Info("Product found");
@@ -145,6 +149,10 @@ partial class Program
                     {
                         foundCategory = db.Categories.Find(CategoryId);
                     }
+                    else
+                    {
+                        logger.Error("Invalid category ID");
+                    }
                     if (foundCategory != null)
                     {
                         Category? UpdatedCategory = new();
@@ -172,6 +180,10 @@ partial class Program
                                 Console.WriteLine($"{productList.ProductId}. Name: {productList.ProductName}, Category: {currentCategory.CategoryName}");
                             }
                         }
+                        else
+                        {
+                            logger.Error("No products in that category")
+                        }
                     }
                     break;
                 case "9":
@@ -183,6 +195,10 @@ partial class Program
                             var categoryName = db.Categories.FirstOrDefault(c => c.CategoryId == productList.CategoryId)?.CategoryName;
                             Console.WriteLine($"ID: {productList.ProductId}, Name: {productList.ProductName}, Category: {categoryName}");
                         }
+                    }
+                    else
+                    {
+                        logger.Error("Invalid category ID");
                     }
                     break;
                 default:
