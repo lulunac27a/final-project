@@ -182,7 +182,7 @@ partial class Program
                         }
                         else
                         {
-                            logger.Error("No products in that category")
+                            logger.Error("No products in that category");
                         }
                     }
                     break;
