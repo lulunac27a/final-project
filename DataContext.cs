@@ -60,6 +60,12 @@ public class DataContext : DbContext
     product.ProductName = UpdatedProduct.ProductName;
     this.SaveChanges();
   }
+  public void EditCategory(Category UpdatedCategory)
+  {
+    Category category = Categories.Find(UpdatedCategory.CategoryId)!;
+    category.CategoryName = UpdatedCategory.CategoryName;
+    this.SaveChanges();
+  }
 
   protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
   {

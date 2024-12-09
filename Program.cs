@@ -19,6 +19,7 @@ partial class Program
             Console.WriteLine("3. Display Products");
             Console.WriteLine("4. Display a Specific Product");
             Console.WriteLine("5. Add Category");
+            Console.WriteLine("6. Edit Category");
             string? choice = Console.ReadLine();
             var db = new DataContext();
             switch (choice)
@@ -126,6 +127,30 @@ partial class Program
                     category.CategoryName = Console.ReadLine();
                     db.AddCategory(category);
                     logger.Info("Category added successfully");
+                    break;
+                case "6":
+                    var categories = db.Categories.OrderBy(c => c.CategoryId).ToList();
+                    if (categories != null)
+                    {
+                        foreach (Category c in categories)
+                        {
+                            Console.WriteLine($"{c.CategoryId}. {c.CategoryName}");
+                        }
+                    }
+                    Category? foundCategory = null;
+                    if (int.TryParse(Console.ReadLine(), out var CategoryId))
+                    {
+                        foundCategory = db.Categories.Find(CategoryId);
+                    }
+                    if (foundCategory != null)
+                    {
+                        Category? UpdatedCategory = new();
+                        Console.WriteLine("Enter category name:");
+                        UpdatedCategory.CategoryName = Console.ReadLine();
+                        UpdatedCategory.CategoryId = foundCategory.CategoryId;
+                        db.EditCategory(UpdatedCategory);
+                        logger.Info("Category edited successfully");
+                    }
                     break;
                 default:
                     logger.Info("Invalid choice. Program ended");
