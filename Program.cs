@@ -162,6 +162,10 @@ partial class Program
                         db.EditCategory(UpdatedCategory);
                         logger.Info("Category edited successfully");
                     }
+                    else
+                    {
+                        logger.Error("Category not found");
+                    }
                     break;
                 case "7":
                     foreach (Category currentCategory in db.Categories)
