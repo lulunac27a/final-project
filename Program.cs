@@ -1,4 +1,6 @@
 ﻿using NLog;
+using Microsoft.EntityFrameworkCore;
+
 partial class Program
 {
     static void Main(string[] args)
@@ -132,6 +134,8 @@ partial class Program
                     Category category = new();
                     Console.WriteLine("Enter category name:");
                     category.CategoryName = Console.ReadLine();
+                    Console.WriteLine("Enter category description:");
+                    category.Description = Console.ReadLine();
                     db.AddCategory(category);
                     logger.Info("Category added successfully");
                     break;
@@ -158,6 +162,8 @@ partial class Program
                         Category? UpdatedCategory = new();
                         Console.WriteLine("Enter category name:");
                         UpdatedCategory.CategoryName = Console.ReadLine();
+                        Console.WriteLine("Enter category description:");
+                        UpdatedCategory.Description = Console.ReadLine();
                         UpdatedCategory.CategoryId = foundCategory.CategoryId;
                         db.EditCategory(UpdatedCategory);
                         logger.Info("Category edited successfully");
@@ -174,21 +180,24 @@ partial class Program
                     }
                     break;
                 case "8":
-                    foreach (Category currentCategory in db.Categories)
+                    var categoriesList = db.Categories.FromSqlRaw("SELECT * FROM Categories").ToList();
+                    foreach (var categoryOne in categoriesList)
                     {
-                        List<Product> productsList = db.Products.Where(p => p.CategoryId == currentCategory.CategoryId).ToList();
+                        int categoryId = categoryOne.CategoryId;
+                        string? categoryName = categoryOne.CategoryName;
+                        string? categoryDescription = categoryOne.Description;
+
+                        List<Product> productsList = db.Products.Where(p => p.CategoryId == categoryId).ToList();
                         if (productsList.Count > 0)
                         {
+                            Console.WriteLine($"{categoryId}. Name: {categoryName}, Description: {categoryDescription}");
                             foreach (Product productList in productsList)
                             {
-                                Console.WriteLine($"{productList.ProductId}. Name: {productList.ProductName}, Category: {currentCategory.CategoryName}");
+                                Console.WriteLine($"{productList.ProductId}. {productList.ProductName}");
                             }
                         }
-                        else
-                        {
-                            logger.Error("No products in that category");
-                        }
                     }
+
                     break;
                 case "9":
                     if (int.TryParse(Console.ReadLine(), out int selectedCategoryId))
